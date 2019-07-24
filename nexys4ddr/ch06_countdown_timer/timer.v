@@ -5,7 +5,7 @@ module timer(
     input switch_cancel,
     input switch_start_stop,
     output [7:0] SEG,
-    output [3:0] DIGIT,
+    output [7:0] DIGIT,
     output BUZZER
     );
 	 
