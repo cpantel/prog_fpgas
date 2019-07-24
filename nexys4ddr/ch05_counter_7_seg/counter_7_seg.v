@@ -3,40 +3,38 @@ module counter_7_seg(
     input switch_up,
     input switch_clear,
     output [7:0] SEG,
-    output [2:0] DIGIT
+    output [7:0] DIGIT
     );
 
 wire s_up, s_clear;
 debouncer d1(.CLK (CLK), .switch_input (switch_up), .trans_dn (s_up));
 debouncer d2(.CLK (CLK), .switch_input (switch_clear), .trans_dn (s_clear));
 
-reg [3:0] units, tens, hundreds;
+reg [11:0] digits;
 
 display_7_seg display(.CLK (CLK), 
-		.units (units), .tens (tens), .hundreds (hundreds),
+		.digits(digits),
 		.SEG (SEG), .DIGIT (DIGIT));
 
 always @(posedge CLK)
 begin
   if (s_up)
   begin
-	 units <= units + 1;
-    if (units == 9) 
+	digits[3:0] <= digits[3:0] + 1;
+    if (digits[3:0] == 9) 
     begin
-      units <= 0;
-      tens <= tens + 1;
-      if (tens == 9) 
+      digits[3:0] <= 0;
+      digits[7:4] <= digits[7:4] + 1;
+      if (digits[7:4] == 9) 
       begin
-        tens <= 0;
-        hundreds <= hundreds + 1;
+        digits[7:4] <= 0;
+        digits[11:8] <= digits[11:8] + 1;
       end
     end		
   end
   if (s_clear)
   begin
-    units <= 0;
-    tens <= 0;
-    hundreds <= 0;
+    digits <= 0;
   end
 end
 
