@@ -3,7 +3,8 @@ module pwm_tester(
     input faster_button,
     input slower_button,
     output PWM_led,
-    output JA1
+    output JA1,
+    output JB1
     );
 
 wire s_up, s_dn;
@@ -12,7 +13,7 @@ debouncer d2(.CLK (CLK), .switch_input (slower_button), .trans_up (s_dn));
 
 reg [7:0] duty = 0;
 reg [6:0] prescaler = 0; // CLK freq / 128 / 256 = 1.5kHz
-pwm p(.pwm_clk (prescaler[6]), .duty (duty), .PWM_PIN (PWM_led), .JA_PIN(JA1));
+pwm p(.pwm_clk (prescaler[6]), .duty (duty), .PWM_led (PWM_led), .PWM_pin(JA1), .PWM_CLK_pin(JB1));
 
 always @(posedge CLK)
 begin
