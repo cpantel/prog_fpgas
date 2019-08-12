@@ -7,12 +7,24 @@ module pwm_tester(
     output JB1
     );
 
+/*
+//25 points of resolution
 parameter DUTYLOW = 26;
 parameter DUTYHIGH = 51;
 parameter DUTYSTEP = 1;
 parameter DUTYWIDTH = 8;
 
 parameter PRESCALER = 12;
+parameter PRESCALER_ADJUST = 95;
+*/
+
+// 50 points of resolution
+parameter DUTYLOW = 52;
+parameter DUTYHIGH = 102;
+parameter DUTYSTEP = 1;
+parameter DUTYWIDTH = 10;
+
+parameter PRESCALER = 11;
 parameter PRESCALER_ADJUST = 95;
 
 parameter PRESCALER_MAX = ( 2 ** PRESCALER ) * PRESCALER_ADJUST / 100;
